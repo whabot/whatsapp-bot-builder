@@ -92,11 +92,9 @@ class WhaBot {
             return res.data;
         });
     }
-    sendImage(to, message, options = { type: 'text' }) {
+    sendImage(to, message, options = { type: 'image' }) {
         return __awaiter(this, void 0, void 0, function* () {
-            let { type } = options;
-            if (!type)
-                type = 'image';
+            const { type } = options;
             const header = { 'Content-Type': 'application/json', Authorization: 'Bearer ' + this.token };
             const reply = { "messaging_product": "whatsapp", "to": to, "type": type, image: { "link": message } };
             const url = apiBase + 'v13.0/' + this.phoneID + '/messages';
