@@ -73,6 +73,8 @@ class WhaBot {
       }
       res.status(200).send({status: 'success'});
     });
+    app.use(express.static(__dirname + '/public'));
+
     app.listen(port, () => {
       console.log(`Example app listening on port ${port}`)
     })
