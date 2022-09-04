@@ -92,6 +92,20 @@ class WhaBot {
             return res.data;
         });
     }
+    sendImage(to, message, options = { type: 'text' }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { type } = options;
+            if (!type)
+                type = 'image';
+            const header = { 'Content-Type': 'application/json', Authorization: 'Bearer ' + this.token };
+            const reply = { "messaging_product": "whatsapp", "to": to, "type": type, image: { "link": message } };
+            const url = apiBase + 'v13.0/' + this.phoneID + '/messages';
+            const res = yield fetch(url, { method: 'post', headers: header, body: JSON.stringify(reply) });
+            const resp = yield res.json();
+            console.log(resp);
+            return resp;
+        });
+    }
     on(type, pattern, fn) {
         let matching = 'string';
         if (Object.prototype.toString.call(pattern) == '[object RegExp]') {
