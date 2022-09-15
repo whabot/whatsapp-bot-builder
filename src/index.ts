@@ -103,6 +103,18 @@ class WhaBot {
     return resp;
   }
 
+  async sendDocument(to: any, message: any, options: {type: string} = {type: 'document'}) {
+    const {type} = options;
+    const header = {'Content-Type': 'application/json', Authorization: 'Bearer ' + this.token};
+    const reply = { "messaging_product": "whatsapp", "to": to, "type": type, document: { "link":  message,"caption": 'report', "filename": 'report.pdf'} };
+    const url = apiBase + 'v13.0/' + this.phoneID + '/messages';
+    const res = await fetch(url, {method: 'post', headers: header, body: JSON.stringify(reply)});
+    const resp = await res.json();
+    console.log(resp);
+
+    return resp;
+  }
+
   on(type: any, pattern: string, fn: any) {
     let matching = 'string';
 
